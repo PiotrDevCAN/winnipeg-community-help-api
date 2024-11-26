@@ -1,32 +1,55 @@
-const db = require('../services/dbConnection');
+const db = require('../services/dbPool');
 
 const Community = {
-    getAllCommunities: (callback) => {
-        db.query('SELECT * FROM communities', callback);
+    getAllRecords: async () => {
+        try {
+            const [results] = await db.query('SELECT * FROM communities');
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    getCommunityById: (id, callback) => {
-        db.query('SELECT * FROM communities WHERE id = ?', [id], callback);
+    getRecordById: async (id) => {
+        try {
+            const [results] = await db.query('SELECT * FROM communities WHERE id = ?', [id]);
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    createCommunity: (title, description, callback) => {
-        db.query(
-            'INSERT INTO communities (title, description) VALUES (?, ?)',
-            [title, description],
-            callback
-        );
+    createRecord: async (title, description, callback) => {
+        try {
+            const [results] = await db.query(
+                'INSERT INTO communities (title, description) VALUES (?, ?)',
+                [title, description]
+            );
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    updateCommunity: (id, title, description, completed, callback) => {
-        db.query(
-            'UPDATE communities SET title = ?, description = ?, completed = ? WHERE id = ?',
-            [title, description, completed, id],
-            callback
-        );
+    updateRecord: async (id, title, description, completed) => {
+        try {
+            const [results] = await db.query(
+                'UPDATE communities SET title = ?, description = ?, completed = ? WHERE id = ?',
+                [title, description, completed, id]
+            );
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    deleteCommunity: (id, callback) => {
-        db.query('DELETE FROM communities WHERE id = ?', [id], callback);
+    deleteRecord: async (id) => {
+        try {
+            const [results] = await db.query('DELETE FROM communities WHERE id = ?', [id]);
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 };
 

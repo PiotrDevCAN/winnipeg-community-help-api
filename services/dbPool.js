@@ -21,4 +21,4 @@ const ensureConnection = async () => {
 
 ensureConnection();
 
-module.exports = connection;
+module.exports = pool;

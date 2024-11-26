@@ -1,32 +1,55 @@
-const db = require('../services/dbConnection');
+const db = require('../services/dbPool');
 
 const Offer = {
-    getAllOffers: (callback) => {
-        db.query('SELECT * FROM offers', callback);
+    getAllRecords: async () => {
+        try {
+            const [results] = await db.query('SELECT * FROM offers');
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    getOfferById: (id, callback) => {
-        db.query('SELECT * FROM offers WHERE id = ?', [id], callback);
+    getRecordById: async (id) => {
+        try {
+            const [results] = await db.query('SELECT * FROM offers WHERE id = ?', [id]);
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    createOffer: (title, description, callback) => {
-        db.query(
-            'INSERT INTO offers (title, description) VALUES (?, ?)',
-            [title, description],
-            callback
-        );
+    createRecord: async (title, description, callback) => {
+        try {
+            const [results] = await db.query(
+                'INSERT INTO offers (title, description) VALUES (?, ?)',
+                [title, description]
+            );
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    updateOffer: (id, title, description, completed, callback) => {
-        db.query(
-            'UPDATE offers SET title = ?, description = ?, completed = ? WHERE id = ?',
-            [title, description, completed, id],
-            callback
-        );
+    updateRecord: async (id, title, description, completed) => {
+        try {
+            const [results] = await db.query(
+                'UPDATE offers SET title = ?, description = ?, completed = ? WHERE id = ?',
+                [title, description, completed, id]
+            );
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 
-    deleteOffer: (id, callback) => {
-        db.query('DELETE FROM offers WHERE id = ?', [id], callback);
+    deleteRecord: async (id) => {
+        try {
+            const [results] = await db.query('DELETE FROM offers WHERE id = ?', [id]);
+            return results;
+        } catch (error) {
+            throw new Error('Database query failed: ' + error.message);
+        }
     },
 };
 
