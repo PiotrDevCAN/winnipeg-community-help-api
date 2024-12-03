@@ -1,5 +1,4 @@
-// const jwt = require('jsonwebtoken');
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 // Generate Token
 const generateToken = (user) => {
@@ -27,4 +26,7 @@ const regenerateToken = (oldToken) => {
     }
 };
 
-export { generateToken, regenerateToken };
+module.exports = {
+    generateToken,
+    regenerateToken
+};

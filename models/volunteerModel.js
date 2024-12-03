@@ -3,7 +3,7 @@ const db = require('../services/dbPool');
 const Volunteer = {
     getAllRecords: async () => {
         try {
-            const [results] = await db.query('SELECT * FROM volunteers');
+            const [results] = await db.query('SELECT V.*, C.label AS sub_community_name, MC.id AS main_community_id, MC.label AS community_name FROM volunteers AS V LEFT JOIN communities AS C ON V.community_id = C.id LEFT JOIN main_communities AS MC ON C.community_id = MC.id');
             return results;
         } catch (error) {
             throw new Error('Database query failed: ' + error.message);

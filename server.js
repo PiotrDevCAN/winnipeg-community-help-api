@@ -4,10 +4,15 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 
 const authRoutes = require('./routes/authRoutes');
-const communityRoutes = require('./routes/communityRoutes');
-const offerRoutes = require('./routes/offerRoutes');
 const requestRoutes = require('./routes/requestRoutes');
+const offerRoutes = require('./routes/offerRoutes');
+const communityRoutes = require('./routes/communityRoutes');
 const volunteerRoutes = require('./routes/volunteerRoutes');
+
+const helpCategoryRoutes = require('./routes/helpCategoryRoutes');
+const helpTypeRoutes = require('./routes/helpTypeRoutes');
+
+const mainCommunityRoutes = require('./routes/mainCommunityRoutes');
 
 dotenv.config();
 
@@ -16,17 +21,22 @@ dotenv.config();
 // const API_KEY = process.env.API_KEY;
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 
-app.use('/api/community', communityRoutes);
-app.use('/api/offer', offerRoutes);
 app.use('/api/request', requestRoutes);
+app.use('/api/offer', offerRoutes);
 app.use('/api/volunteer', volunteerRoutes);
+app.use('/api/community', communityRoutes);
+
+app.use('/api/help-category', helpCategoryRoutes);
+app.use('/api/help-type', helpTypeRoutes);
+
+app.use('/api/main-community', mainCommunityRoutes);
 
 // Test base route
 app.get('/', (req, res) => {
@@ -34,5 +44,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on ${port}`);
 });
