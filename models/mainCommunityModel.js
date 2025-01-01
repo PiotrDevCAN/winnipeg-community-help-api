@@ -1,56 +1,11 @@
-const db = require('../services/dbPool');
+const DBHandler = require('../services/dbHandler');
 
-const mainCommunity = {
-    getAllRecords: async () => {
-        try {
-            const [results] = await db.query('SELECT * FROM main_communities');
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
+const TABLE_NAME = 'main_communities';
+const TABLE_COLUMNS = [
+    'label',
+    'description'
+];
 
-    getRecordById: async (id) => {
-        try {
-            const [results] = await db.query('SELECT * FROM main_communities WHERE id = ?', [id]);
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
+const MainCommunity = new DBHandler(TABLE_NAME, TABLE_COLUMNS);
 
-    createRecord: async (title, description, callback) => {
-        try {
-            const [results] = await db.query(
-                'INSERT INTO main_communities (title, description) VALUES (?, ?)',
-                [title, description]
-            );
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-
-    updateRecord: async (id, title, description, completed) => {
-        try {
-            const [results] = await db.query(
-                'UPDATE main_communities SET title = ?, description = ?, completed = ? WHERE id = ?',
-                [title, description, completed, id]
-            );
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-
-    deleteRecord: async (id) => {
-        try {
-            const [results] = await db.query('DELETE FROM main_communities WHERE id = ?', [id]);
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-};
-
-module.exports = mainCommunity;
+module.exports = MainCommunity;

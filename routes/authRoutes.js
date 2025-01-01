@@ -7,7 +7,7 @@ const { authenticateToken } = require('../middleware/authenticateToken');
 const { verifyToken } = require('../middleware/verifyToken');
 
 router.post('/authenticate', authController.authenticate);
-router.post('refresh-token', authController.refreshToken);
+router.post('/refresh-token', authController.refreshToken);
 router.post('/secure-data', authenticateToken, authController.secureData);
 router.post('/protected-data', authController.protectedData);
 

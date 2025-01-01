@@ -1,56 +1,21 @@
-const db = require('../services/dbPool');
+const DBHandler = require('../services/dbHandler');
 
-const Community = {
-    getAllRecords: async () => {
-        try {
-            const [results] = await db.query('SELECT * FROM communities');
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
+const TABLE_NAME = 'communities';
+const TABLE_COLUMNS = [
+    'community_id',
+    'label',
+    'alias',
+    'email',
+    'phone_number',
+    'website',
+    'description',
+    'confirmed'
+];
 
-    getRecordById: async (id) => {
-        try {
-            const [results] = await db.query('SELECT * FROM communities WHERE id = ?', [id]);
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
+class Community extends DBHandler {
+    constructor() {
+        super(TABLE_NAME, TABLE_COLUMNS);
+    }
+}
 
-    createRecord: async (title, description, callback) => {
-        try {
-            const [results] = await db.query(
-                'INSERT INTO communities (title, description) VALUES (?, ?)',
-                [title, description]
-            );
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-
-    updateRecord: async (id, title, description, completed) => {
-        try {
-            const [results] = await db.query(
-                'UPDATE communities SET title = ?, description = ?, completed = ? WHERE id = ?',
-                [title, description, completed, id]
-            );
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-
-    deleteRecord: async (id) => {
-        try {
-            const [results] = await db.query('DELETE FROM communities WHERE id = ?', [id]);
-            return results;
-        } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
-        }
-    },
-};
-
-module.exports = Community;
+module.exports = new Community();

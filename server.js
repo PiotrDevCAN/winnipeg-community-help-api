@@ -6,8 +6,9 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 const offerRoutes = require('./routes/offerRoutes');
-const communityRoutes = require('./routes/communityRoutes');
 const volunteerRoutes = require('./routes/volunteerRoutes');
+const communityRoutes = require('./routes/communityRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const helpCategoryRoutes = require('./routes/helpCategoryRoutes');
 const helpTypeRoutes = require('./routes/helpTypeRoutes');
@@ -32,6 +33,7 @@ app.use('/api/request', requestRoutes);
 app.use('/api/offer', offerRoutes);
 app.use('/api/volunteer', volunteerRoutes);
 app.use('/api/community', communityRoutes);
+app.use('/api/user', userRoutes);
 
 app.use('/api/help-category', helpCategoryRoutes);
 app.use('/api/help-type', helpTypeRoutes);

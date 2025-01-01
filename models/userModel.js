@@ -1,35 +1,36 @@
 const db = require('../services/dbConnection');
 const DBHandler = require('../services/dbHandler');
 
-const TABLE_NAME = 'volunteers';
+const TABLE_NAME = 'users';
 const TABLE_COLUMNS = [
-    'community_id',
+    'firebase_id',
     'first_name',
     'last_name',
-    'nick',
-    'email',
+    'nickname',
     'phone_number',
     'website',
     'description',
-    'confirmed'
+    'gender',
+    'birth_date',
+    'prefix'
 ];
 
-class Volunteer extends DBHandler {
+class User extends DBHandler {
     constructor() {
         super(TABLE_NAME, TABLE_COLUMNS);
     }
 
-    async getAllRecords() {
+    async getRecordByFirebaseId(id) {
         try {
-            const results = await db.query('SELECT V.*, C.label AS sub_community_name, MC.id AS main_community_id, MC.label AS community_name FROM volunteers AS V LEFT JOIN communities AS C ON V.community_id = C.id LEFT JOIN main_communities AS MC ON C.community_id = MC.id');
+            const results = await db.query(`SELECT * FROM ${this.tableName} WHERE firebase_id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {
-            throw new Error('Database query failed: ' + error.message);
+            throw new Error(`Failed to fetch record by FIREBASE_ID from ${this.tableName}: ${error.message}`);
         }
     }
 
-    async getVolunteersInCommunity(id) {
+    async getUsersInCommunity(id) {
         try {
             const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE community_id = $1`, [id]);
             const { rows } = results;
@@ -40,4 +41,4 @@ class Volunteer extends DBHandler {
     }
 }
 
-module.exports = new Volunteer();
+module.exports = new User();

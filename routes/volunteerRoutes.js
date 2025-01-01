@@ -1,12 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const { verifyToken } = require('../middleware/verifyToken');
+const generateRoutes = require('../services/routeGenerator');
 const volunteerController = require('../controllers/volunteerController');
+const { verifyToken } = require('../middleware/verifyToken');
 
-router.get('/', verifyToken, volunteerController.getAllRecords);
-router.get('/:id', verifyToken, volunteerController.getRecordById);
-router.post('/', verifyToken, volunteerController.createRecord);
-router.put('/:id', verifyToken, volunteerController.updateRecord);
-router.delete('/:id', verifyToken, volunteerController.deleteRecord);
+const router = generateRoutes(volunteerController);
+
+// Add additional routes
+router.get('/list/community/:community_id', verifyToken, volunteerController.getVolunteersInCommunity)
 
 module.exports = router;
