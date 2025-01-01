@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { generateAccessToken, generateRefreshToken } = require('../services/oAuth');
 
 // Dummy user data (replace with a database in production)

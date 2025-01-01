@@ -1,5 +1,5 @@
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { generateToken, regenerateToken } = require('../services/auth');
 
 // Dummy user data (replace with a database in production)
