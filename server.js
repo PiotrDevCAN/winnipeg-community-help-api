@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const requestRoutes = require('./routes/requestRoutes');
 const offerRoutes = require('./routes/offerRoutes');
 const volunteerRoutes = require('./routes/volunteerRoutes');
+const needyRoutes = require('./routes/needyRoutes');
 const communityRoutes = require('./routes/communityRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -38,6 +39,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/request', requestRoutes);
 app.use('/api/offer', offerRoutes);
 app.use('/api/volunteer', volunteerRoutes);
+app.use('/api/needy', needyRoutes);
 app.use('/api/community', communityRoutes);
 app.use('/api/user', userRoutes);
 

@@ -1,20 +1,14 @@
 const db = require('../services/dbConnection');
 const DBHandler = require('../services/dbHandler');
 
-const TABLE_NAME = 'volunteers';
+const TABLE_NAME = 'in_needs';
 const TABLE_COLUMNS = [
-    'community_id',
-    'first_name',
-    'last_name',
-    'nick',
-    'email',
-    'phone_number',
-    'website',
-    'description',
-    'confirmed'
+    'id',
+    'user_id',
+    'created_at'
 ];
 
-class Volunteer extends DBHandler {
+class Needy extends DBHandler {
     constructor() {
         super(TABLE_NAME, TABLE_COLUMNS);
     }
@@ -22,7 +16,7 @@ class Volunteer extends DBHandler {
     async getAllRecords() {
         try {
             const results = await db.query(
-                `SELECT V.*, 
+                `SELECT N.*, 
                 U.firebase_id,
                 U.first_name,
                 U.last_name,
@@ -35,9 +29,9 @@ class Volunteer extends DBHandler {
                 U.prefix,
                 U.email,
                 C.label AS sub_community_name, 
-                MC.id AS main_community_id, MC.label AS community_name 
-                FROM ${this.tableName} AS V 
-                LEFT JOIN users AS U ON V.user_id = U.id 
+                MC.id AS main_community_id, MC.label AS community_name
+                FROM ${this.tableName} AS N 
+                LEFT JOIN users AS U ON N.user_id = U.id 
                 LEFT JOIN communities AS C ON U.community_id = C.id 
                 LEFT JOIN main_communities AS MC ON C.community_id = MC.id`
             );
@@ -51,7 +45,7 @@ class Volunteer extends DBHandler {
     async getRecordById(id) {
         try {
             const results = await db.query(
-                `SELECT V.*, 
+                `SELECT N.*, 
                 U.firebase_id,
                 U.first_name,
                 U.last_name,
@@ -63,9 +57,9 @@ class Volunteer extends DBHandler {
                 U.birth_date,
                 U.prefix,
                 U.community_id
-                FROM ${this.tableName} AS V 
-                LEFT JOIN users AS U ON V.user_id = U.id
-                WHERE V.id = $1`, [id]);
+                FROM ${this.tableName} AS N 
+                LEFT JOIN users AS U ON N.user_id = U.id
+                WHERE N.id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {
@@ -73,7 +67,7 @@ class Volunteer extends DBHandler {
         }
     }
 
-    async getVolunteersInCommunity(id) {
+    async getNeedyPeopleInCommunity(id) {
         try {
             const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE community_id = $1`, [id]);
             const { rows } = results;
@@ -84,4 +78,4 @@ class Volunteer extends DBHandler {
     }
 }
 
-module.exports = new Volunteer();
+module.exports = new Needy();

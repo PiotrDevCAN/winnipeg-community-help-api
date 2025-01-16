@@ -1,15 +1,15 @@
-const Volunteer = require('../models/volunteerModel');
+const Needy = require('../models/needyModel');
 const Offer = require('../models/offerModel');
 const RequestList = require('../models/requestListModel');
 const baseController = require('./baseController');
 
-const controller = baseController(Volunteer);
+const controller = baseController(Needy);
 
-controller.getVolunteersInCommunity = async (req, res) => {
+controller.getNeedyPeopleInCommunity = async (req, res) => {
     const { community_id } = req.params;
 
     try {
-        const result = await Volunteer.getVolunteersInCommunity(community_id);
+        const result = await Needy.getNeedyPeopleInCommunity(community_id);
 
         if (!result || result.length === 0) {
             return res.status(404).json({
@@ -43,7 +43,7 @@ controller.getVolunteersInCommunity = async (req, res) => {
     }
 }
 
-controller.getVolunteerRequests = async (req, res) => {
+controller.getNeedyRequests = async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -81,7 +81,7 @@ controller.getVolunteerRequests = async (req, res) => {
     }
 }
 
-controller.getVolunteerOffers = async (req, res) => {
+controller.getNeedyOffers = async (req, res) => {
     const { id } = req.params;
 
     try {
