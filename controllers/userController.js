@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const Request = require('../models/RequestModel');
+const Request = require('../models/requestModel');
 const OfferList = require('../models/offerListModel');
 const baseController = require('./baseController');
 
