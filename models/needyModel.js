@@ -56,6 +56,7 @@ class Needy extends DBHandler {
                 U.gender,
                 U.birth_date,
                 U.prefix,
+                U.email,
                 U.community_id
                 FROM ${this.tableName} AS N 
                 LEFT JOIN users AS U ON N.user_id = U.id

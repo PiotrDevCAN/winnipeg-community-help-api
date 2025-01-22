@@ -62,6 +62,7 @@ class Volunteer extends DBHandler {
                 U.gender,
                 U.birth_date,
                 U.prefix,
+                U.email,
                 U.community_id
                 FROM ${this.tableName} AS V 
                 LEFT JOIN users AS U ON V.user_id = U.id

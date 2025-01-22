@@ -17,7 +17,7 @@ class OfferList extends DBHandler {
 
     async getUserOffers(id) {
         try {
-            const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE volunteer_id = $1`, [id]);
+            const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE in_need_id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {
