@@ -70,7 +70,11 @@ class Needy extends DBHandler {
 
     async getNeedyPeopleInCommunity(id) {
         try {
-            const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE community_id = $1`, [id]);
+            const results = await db.query(`
+                SELECT COUNT(*) AS amount
+                FROM ${this.tableName} AS N 
+                LEFT JOIN users AS U ON N.user_id = U.id
+                WHERE U.community_id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {

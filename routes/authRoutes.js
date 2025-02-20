@@ -14,5 +14,6 @@ router.post('/protected-data', authController.protectedData);
 router.post('/authenticate-oauth', oAuthController.authenticate);
 router.post('/refresh-token-oauth', oAuthController.refreshToken);
 router.post('/secure-data-oauth', verifyToken, authController.secureData);
+router.post('/logout-oauth', oAuthController.authenticate);
 
 module.exports = router;

@@ -49,7 +49,10 @@ class User extends DBHandler {
 
     async getUsersInCommunity(id) {
         try {
-            const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE community_id = $1`, [id]);
+            const results = await db.query(`
+                SELECT COUNT(*) AS amount 
+                FROM ${this.tableName} AS U
+                WHERE U.community_id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {
