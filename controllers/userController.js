@@ -7,7 +7,6 @@ const controller = baseController(User);
 
 controller.getRecordByFirebaseId = async (req, res) => {
     const { firebase_id } = req.params;
-
     try {
         const result = await User.getRecordByFirebaseId(firebase_id);
 
@@ -45,7 +44,6 @@ controller.getRecordByFirebaseId = async (req, res) => {
 
 controller.getUsersInCommunity = async (req, res) => {
     const { community_id } = req.params;
-
     try {
         const result = await User.getUsersInCommunity(community_id);
 
@@ -56,7 +54,7 @@ controller.getUsersInCommunity = async (req, res) => {
                 data: null,
                 error: {
                     code: 'NOT_FOUND',
-                    message: `Record with FIREBASE_ID ${community_id} does not exist`,
+                    message: `Record with COMMUNITY_ID ${community_id} does not exist`,
                 },
                 pagination: null,
             });
@@ -83,7 +81,6 @@ controller.getUsersInCommunity = async (req, res) => {
 
 controller.getUserRequests = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await Request.getUserRequests(id);
 
@@ -121,7 +118,6 @@ controller.getUserRequests = async (req, res) => {
 
 controller.getUserOffers = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await OfferList.getUserOffers(id);
 

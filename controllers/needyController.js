@@ -7,7 +7,6 @@ const controller = baseController(Needy);
 
 controller.getNeedyPeopleInCommunity = async (req, res) => {
     const { community_id } = req.params;
-
     try {
         const result = await Needy.getNeedyPeopleInCommunity(community_id);
 
@@ -18,7 +17,7 @@ controller.getNeedyPeopleInCommunity = async (req, res) => {
                 data: null,
                 error: {
                     code: 'NOT_FOUND',
-                    message: `Record with FIREBASE_ID ${community_id} does not exist`,
+                    message: `Record with COMMUNITY_ID ${community_id} does not exist`,
                 },
                 pagination: null,
             });
@@ -45,7 +44,6 @@ controller.getNeedyPeopleInCommunity = async (req, res) => {
 
 controller.getNeedyRequests = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await RequestList.getUserRequests(id);
 
@@ -83,7 +81,6 @@ controller.getNeedyRequests = async (req, res) => {
 
 controller.getNeedyOffers = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await Offer.getUserOffers(id);
 

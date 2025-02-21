@@ -47,7 +47,6 @@ const baseController = (Model) => ({
 
     getRecordById: async (req, res) => {
         const { id } = req.params;
-
         try {
             const result = await Model.getRecordById(id);
 
@@ -108,7 +107,6 @@ const baseController = (Model) => ({
 
     updateRecord: async (req, res) => {
         const { id } = req.params;
-
         try {
             const result = await Model.updateRecord(id, req.body);
 
@@ -146,7 +144,6 @@ const baseController = (Model) => ({
 
     deleteRecord: async (req, res) => {
         const { id } = req.params;
-
         try {
             const result = await Model.deleteRecord(id);
 

@@ -3,28 +3,78 @@ const baseController = require('./baseController');
 
 const controller = baseController(Community);
 
-controller.getCommunityRequests = async (req, res) => {
-    const { id } = req.params;
+controller.getOffersInCommunity = async (req, res) => {
+    const { community_id } = req.params;
+    try {
+        const result = await Community.getOffersInCommunity(community_id);
 
-    res.status(200).json({
-        status: 'success',
-        message: 'Record retrieved successfully',
-        data: 'TEST 1',
-        error: null,
-        pagination: null,
-    });
+        if (!result || result.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Record not found',
+                data: null,
+                error: {
+                    code: 'NOT_FOUND',
+                    message: `Record with COMMUNITY_ID ${community_id} does not exist`,
+                },
+                pagination: null,
+            });
+        }
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Record retrieved successfully',
+            data: result[0],
+            error: null,
+            pagination: null,
+        });
+    } catch (err) {
+        console.error('Error retrieving record:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve record',
+            data: null,
+            error: { code: 'SERVER_ERROR', message: err.message },
+            pagination: null,
+        });
+    }
 }
 
-controller.getCommunityOffers = async (req, res) => {
-    const { id } = req.params;
+controller.getRequestsInCommunity = async (req, res) => {
+    const { community_id } = req.params;
+    try {
+        const result = await Community.getRequestsInCommunity(community_id);
 
-    res.status(200).json({
-        status: 'success',
-        message: 'Record retrieved successfully',
-        data: 'TEST 2',
-        error: null,
-        pagination: null,
-    });
+        if (!result || result.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Record not found',
+                data: null,
+                error: {
+                    code: 'NOT_FOUND',
+                    message: `Record with COMMUNITY_ID ${community_id} does not exist`,
+                },
+                pagination: null,
+            });
+        }
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Record retrieved successfully',
+            data: result[0],
+            error: null,
+            pagination: null,
+        });
+    } catch (err) {
+        console.error('Error retrieving record:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve record',
+            data: null,
+            error: { code: 'SERVER_ERROR', message: err.message },
+            pagination: null,
+        });
+    }
 }
 
 module.exports = controller;

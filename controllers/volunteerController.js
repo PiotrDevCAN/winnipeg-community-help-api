@@ -7,7 +7,6 @@ const controller = baseController(Volunteer);
 
 controller.getVolunteersInCommunity = async (req, res) => {
     const { community_id } = req.params;
-
     try {
         const result = await Volunteer.getVolunteersInCommunity(community_id);
 
@@ -18,7 +17,7 @@ controller.getVolunteersInCommunity = async (req, res) => {
                 data: null,
                 error: {
                     code: 'NOT_FOUND',
-                    message: `Record with FIREBASE_ID ${community_id} does not exist`,
+                    message: `Record with COMMUNITY_ID ${community_id} does not exist`,
                 },
                 pagination: null,
             });
@@ -45,7 +44,6 @@ controller.getVolunteersInCommunity = async (req, res) => {
 
 controller.getVolunteerRequests = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await RequestList.getUserRequests(id);
 
@@ -83,7 +81,6 @@ controller.getVolunteerRequests = async (req, res) => {
 
 controller.getVolunteerOffers = async (req, res) => {
     const { id } = req.params;
-
     try {
         const result = await Offer.getUserOffers(id);
 

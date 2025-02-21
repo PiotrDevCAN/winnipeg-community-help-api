@@ -73,7 +73,10 @@ class Request extends DBHandler {
 
     async getUserRequests(id) {
         try {
-            const results = await db.query(`SELECT COUNT(*) AS amount FROM ${this.tableName} WHERE requestor_id = $1`, [id]);
+            const results = await db.query(`
+                SELECT COUNT(*) AS amount 
+                FROM ${this.tableName} 
+                WHERE requestor_id = $1`, [id]);
             const { rows } = results;
             return rows;
         } catch (error) {
